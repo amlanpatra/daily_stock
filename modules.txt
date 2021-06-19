@@ -1,0 +1,6 @@
+pandas
+yfinance
+wget
+requests
+pyautogui
+urllib3

