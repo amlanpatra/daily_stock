@@ -12,7 +12,7 @@ import wget
 # Get the file downloaded as : 'DV 17.01 main.csv'
 # 'dv'+
 
-def get_file():
+def get_file(changing_name='Main.csv'):
     now = datetime.datetime.now()
     d = str(now.day)
     m = now.month
@@ -55,10 +55,10 @@ def get_file():
     final_url = str(
         'https://www1.nseindia.com/archives/nsccl/volt/CMVOLT_') + datex + ('.CSV')
     global changing_date
-    global changing_name
+    # global changing_name
     #changing_date = ("dv " + d + '.' + m)
     #changing_name = (changing_date + ' Main.csv')
-    changing_name = ('Main.csv')
+    # changing_name = ('Main.csv')
     print(final_url)
     get_file = wget.download(final_url, changing_name)
 

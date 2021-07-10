@@ -44,7 +44,7 @@ def max_daily_change(indices, intrvl='1d', quantity=0, add_ns=1):
     df2['Average'] = temp
 
     #temp = ((df2['High'] - df2['Low'])*100) / df2['Average']
-    temp = ((df2['Close'] - df2['Open'])*100) / df2['Open']
+    temp = ((abs(df2['Close'] - df2['Open']))*100) / df2['Open']
     df2['Change%'] = temp
 
     temp = (df2['Close']-df2['Open'])

@@ -25,16 +25,6 @@ while (datetime.datetime.today().isoweekday() != 6
             if (min == 0 or min == 5 or min == 10 or min == 15 or min == 20 or min == 25 or min == 30 or min == 35 or min == 40 or min == 45 or min == 50 or min == 55):
                 # if (min == 59 or min == 4 or min == 9 or min == 14 or min == 19 or min == 24 or min == 29 or min == 34 or min == 39 or min == 44 or min == 49 or min == 54):
 
-                """
-                if (min == 5 or min == 10 or min == 20 or min == 25 or min == 35 or min == 40 or min == 50 or min == 55):
-                    tsend.psend("5min Sector :  {}".format(
-                        daily_change.max_daily_change(indices.nifty_sectors, "5m", add_ns=0)))
-                    tsend.psend("5min Nifty50 : {}".format(
-                        daily_change.max_daily_change(indices.nifty50, "5m", 10)))
-                    tsend.psend("5min Nifty_next50 :{}".format(
-                        daily_change.max_daily_change(indices.nifty_next50, "5m", 10)))
-                    time.sleep(60)
-"""
                 if (min == 5 or min == 10 or min == 20 or min == 25 or min == 35 or min == 40 or min == 50 or min == 55):
                     tsend.min5psend("5min Doji : {}".format(candlesticks.doji(
                         (indices.nifty50 + indices.nifty_next50), '5m', 15)))

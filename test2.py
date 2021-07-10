@@ -1,6 +1,9 @@
-import tsend
-import candlesticks
+import pandas as pd
 import indices
-tsend.min5psend("this is for 5min sending")
-tsend.pkpsend("this is for 15min sending")
-tsend.psend("this is for hourly send")
+import candlesticks3
+import tsend
+
+a = candlesticks3.candlesticks(indices.nifty100, intrvl='1d', quantity=5)
+print(a.hammer())
+print(a.doji())
+print(a.most_change())

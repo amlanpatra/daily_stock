@@ -4,3 +4,6 @@ wget
 requests
 pyautogui
 urllib3
+pdfkit 
+openpyxl
+wkhtmltopdf

@@ -1,3 +1,4 @@
+import indices
 import pandas as pd
 import yfinance as yf
 import tsend
@@ -44,20 +45,20 @@ def trend(name_of_msg, index, lmt=5):
         ultimate_2nd_down.remove(i)
     for i in ultimate_3nd_up:
         ultimate_2nd_up.remove(i)
-        
-    for i in ultimate_2nd_down:
-        if '&' in i:
-            i = i.replace('&', '_')
-    for i in ultimate_3nd_down:
-        if '&' in i:
-            i = i.replace('&', '_')
-    for i in ultimate_2nd_up:
-        if '&' in i:
-            i = i.replace('&', '_')
-    for i in ultimate_3nd_up:
-        if '&' in i:
-            i = i.replace('&', '_')
-        
+
+    # for i in ultimate_2nd_down:
+    #     if '&' in i:
+    #         i = i.replace('&', '_')
+    # for i in ultimate_3nd_down:
+    #     if '&' in i:
+    #         i = i.replace('&', '_')
+    # for i in ultimate_2nd_up:
+    #     if '&' in i:
+    #         i = i.replace('&', '_')
+    # for i in ultimate_3nd_up:
+    #     if '&' in i:
+    #         i = i.replace('&', '_')
+
     down2_str = ''
     down3_str = ''
     up2_str = ''
@@ -83,12 +84,28 @@ def trend(name_of_msg, index, lmt=5):
     except:
         pass
 
-    down2_str = down2_str[1:]
-    down3_str = down3_str[1:]
-    up2_str = up2_str[1:]
-    up3_str = up3_str[1:]
+    # down2_str = down2_str[1:]
+    # down3_str = down3_str[1:]
+    # up2_str = up2_str[1:]
+    # up3_str = up3_str[1:]
 
-    #tsend.start_dots(2, name_of_msg)
+    def rem(x):
+        x = x.replace(
+            '&', '_') if '&' in x else x
+        x = x.replace(
+            '-', '_') if '-' in x else x
+        return x
+
+    down2_str = rem(down2_str[1:])
+    down3_str = rem(down3_str[1:])
+    up2_str = rem(up2_str[1:])
+    up3_str = rem(up3_str[1:])
+
+    tdview_list = down2_str+',' + down3_str+','+up2_str+','+up3_str
+    f = open("/Users/amlanpatra/Desktop/stk_test/day_trend.txt", "w")
+    f.write(tdview_list)
+    f.close()
+
     tsend.send(name_of_msg)
     tsend.send("2 days DOWN : {}".format(down2_str))
     tsend.send("3 days DOWN : {}".format(down3_str))
@@ -100,4 +117,4 @@ def trend(name_of_msg, index, lmt=5):
 #trend('nifty_over200', nifty_over200)
 #trend('nifty101_to_200', nifty101_to_200)
 #trend('nifty_next50', nifty_next50)
-#trend('nifty50', nifty50)
+# trend('nifty50', indices.nifty50)

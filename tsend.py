@@ -7,9 +7,9 @@ import time
 
 def send(x):
     url = "https://api.telegram.org/bot1727980585:AAHFRrTSekWIyq1zD_BkO0FjiXyzi7_EWFM/sendMessage?chat_id=-1001455798482&text="+x
-    time.sleep(5)
     r = requests.get(url)
     print(r.text)
+    time.sleep(5)
 
 
 def sendc(x):
@@ -28,7 +28,7 @@ def start_dots(rangee, nameoftrend):
 
 
 def send_file(name):
-    url = 'curl -v -F "chat_id=-1001455798482" -F document=@{} https://api.telegram.org/bot1727980585:AAHFRrTSekWIyq1zD_BkO0FjiXyzi7_EWFM/sendDocument'.format(
+    url = 'curl -v -F "chat_id=889863862" -F document=@{} https://api.telegram.org/bot1727980585:AAHFRrTSekWIyq1zD_BkO0FjiXyzi7_EWFM/sendDocument'.format(
         name)
     subprocess.call(url, shell=True)
 # curl -v -F "chat_id=-1001455798482" -F document=@/Users/amlanpatra/Desktop/Projects/stck_analysis_dev/ss.png https://api.telegram.org/bot1727980585:AAEWfPLYEB95CgoSbSQC5Sx58GCi9DvxGMA/sendDocument
@@ -50,8 +50,17 @@ def psend_file(name):  # psend_file means personal sending of files
     subprocess.call(url, shell=True)
 
 
+def test_send(x):
+    url = "https://api.telegram.org/bot1889980295:AAFWdnU2dN6i0vYtgpF96jSzMgFYtS5FZqg/sendMessage?chat_id=889863862&text="+x
+    # time.sleep(5)
+    r = requests.get(url)
+    print(r.text)
+
+# 1889980295:AAFWdnU2dN6i0vYtgpF96jSzMgFYtS5FZqg        <=== test bot token
 # 1194321406:AAGLxsBjGay252PCPXhTMl_CKipqc-25vMM        <== powerkey bot token
 # 1713334304:AAHgY3CyRO-QYhBTUGuxI4DSt59qmHbj4Is        <== min5 bot token
+
+
 def pkpsend(x):  # psend for personal send of messages through powerkey bot
     url = "https://api.telegram.org/bot1194321406:AAGLxsBjGay252PCPXhTMl_CKipqc-25vMM/sendMessage?chat_id=889863862&text="+x
     # time.sleep(5)

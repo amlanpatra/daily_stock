@@ -9,5 +9,13 @@
         "markdown",
         "latex",
         "plaintext"
-    ]
+    ],
+    "terminal.integrated.cursorBlinking": true,
+"terminal.integrated.fontSize": 14,
+"terminal.integrated.fontWeight": null,
+"terminal.integrated.env.linux": {
+
+},
+
+    
 }
