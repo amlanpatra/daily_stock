@@ -2,7 +2,8 @@ import pandas as pd
 import os
 import datetime
 import wget
-
+import indices
+import subprocess
 #print('The current directory is :', os.getcwd())
 
 
@@ -46,7 +47,7 @@ def get_file(changing_name='Main.csv'):
     if int(float(d)) < 10:
         d = '0' + d
 
-    date = (d + m + y)
+    date = (str(d) + str(m) + str(y))
     datex = str(date)
     # print(date)
 
@@ -85,9 +86,11 @@ okokok = ['ACC', 'ADANIENT', 'ADANIPORTS', 'ADANIPOWER', 'AMARAJABAT', 'AMBUJACE
 # 'TATAGLOBAL', was above in the list
 
 
-def fo(c, x):
+def fo(c, x, deleteMain_csv_file=1):
     import os
     a = pd.read_csv('Main.csv', header=0, index_col=1)
+    if(deleteMain_csv_file == 1):
+        subprocess.call("rm Main.csv", shell=True)
     # this is changing into the desired directory and so not compulsory
     # os.chdir("/Users/amlanpatra/Desktop/test")
     list_of_tables = []
@@ -102,6 +105,10 @@ def fo(c, x):
     alpha = (str(x)+'d F&O.csv')
     d.to_csv(alpha)
     # return list_of_tables
+
+
+# get_file()
+# fo(indices.nifty100, "20_Oct")
 
 
 # fo(okokok)

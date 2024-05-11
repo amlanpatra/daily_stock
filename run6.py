@@ -97,8 +97,9 @@ while (datetime.datetime.today().isoweekday() != 6
 
             b = candlesticks3.candlesticks(indices.nifty100, quantity=10)
 
-            tsend.psend(
-                "Daily nifty100 top 10 Change : \n {}".format(b.most_change()))
+            # tsend.send("Daily nifty100 top 10 Change : \n {}".format(b.most_change()))
+            tsend.send(
+                "Top change : \n {}".format(b.most_change()))
             tsend.psend("Daily nifty100 10 Doji: {}".format(b.doji()))
             # tsend.psend("Daily nifty100 Hammer : {}".format(b.hammer()))
 

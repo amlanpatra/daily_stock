@@ -1,3 +1,4 @@
+import indices
 import pandas as pd
 import yfinance as yf
 
@@ -64,6 +65,15 @@ def regex(df, quantity, file_name):
     return df
 
 
+def range_bound_close(df, price_range_below=0, price_range_above=0):
+    if not (price_range_below == 0 and price_range_above == 0):
+        # df = df.loc[(df['Close'] > price_range_below and df['Close']
+        #              < price_range_above)]
+        df = df.loc[(df['Close'] >= price_range_below) &
+                    (df['Close'] <= price_range_above)]
+    return df
+
+
 class candlesticks:
 
     def __init__(self, indices, intrvl='1d', perd='1d', quantity=0, add_ns=1):
@@ -72,27 +82,34 @@ class candlesticks:
         self.perd = perd
         self.quantity = quantity
         self.add_ns = add_ns
+        # self.price_range_below = price_range_below
+        # self.price_range_above = price_range_above
         self.df = ohlc_df(get_df(self.indices, self.intrvl,
                                  self.perd, self.quantity, self.add_ns))
         f = open("/Users/amlanpatra/Desktop/stk_test/mix.txt", 'w')
         f.write('')
         f.close()
+        # FIXME: below is to print the df with which operations will begin
+        print(self.df)
 
-    def most_change(self):
+    def most_change(self, price_range_below=0, price_range_above=0):
         df = self.df
         temp = round(((abs(df['Close'] - df['Open']))*100) / df['Open'], 2)
         df['Change%'] = temp
         df = pd.DataFrame(df.sort_values(by=['Change%'], ascending=False))
+        df = range_bound_close(df, price_range_below, price_range_above)
+        print(df)  # FIXME: print this to find out the full df before deleting columns
         df = df[['Change%']]
         df = regex(df, self.quantity, 'most_change')
         return str(df)  # NOTE: typecasts df to string
 
-    def doji(self):
+    def doji(self, price_range_below=0, price_range_above=0):
         df = self.df
         temp = ((abs(df['Close'] - df['Open']))*100) / (df['High'] - df['Low'])
         temp = round(temp, 2)
         df['Doji'] = temp
         df = pd.DataFrame(df.sort_values(by=['Doji'], ascending=True))
+        df = range_bound_close(df, price_range_below, price_range_above)
         df = df[['Doji']]
         df = regex(df, self.quantity, 'doji')   # NOTE: typecasts df to string
         return 'No Candle forming Doji' if df.empty else str(df)
@@ -102,7 +119,7 @@ class candlesticks:
     # close - open >= 0
     # open - mid >= 0
 
-    def hammer(self):
+    def hammer(self, price_range_below=0, price_range_above=0):
         df = self.df
         mid = round((df['High'] + df['Low'])/2, 2)
         df['Mid'] = mid
@@ -112,6 +129,13 @@ class candlesticks:
         df = df.loc[(df['High_close'] <= 10 * high_low_1pc)]
         df = df.loc[(df['Close']-df['Open'] > 0) &
                     (df['Open'] - df['Mid'] >= 0)]
+        df = range_bound_close(df, price_range_below, price_range_above)
         df = df[['High_close']]
         df = regex(df, self.quantity, 'hammer')
         return 'No Candle forming hammer' if df.empty else str(df)
+
+
+# a = candlesticks(indices.nifty50, '5m', quantity=5)
+# print(format(a.most_change(300, 1500)))
+# # print(format(a.most_change()))
+# del a

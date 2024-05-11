@@ -7,4 +7,3 @@ def connect():
         return True
     except:
         return False
-
